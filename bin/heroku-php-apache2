@@ -9,6 +9,8 @@ shopt -s extglob
 # for detecting when -l 'logs/*.log' matches nothing
 shopt -s nullglob
 
+echo "Staging Only"
+
 verbose=
 
 php_passthrough() {
