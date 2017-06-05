@@ -59,6 +59,13 @@ http {
         
         include "<?=getenv('HEROKU_PHP_NGINX_CONFIG_INCLUDE')?>";
         
+        location / {
+            try_files $uri @rewriteapp;
+        }
+
+        location @rewriteapp {
+            rewrite ^(.*)$ /index.php$1 last;
+        }
         # restrict access to hidden files, just in case
         location ~ /\. {
             deny all;
