@@ -28,6 +28,9 @@ http {
     }
     
     server {
+        if ($http_x_forwarded_for != "203.174.139.6") {
+            return 301 https://www.assurecapital.com.au;
+        }
         # define an easy to reference name that can be used in try_files
         location @heroku-fcgi {
             include fastcgi_params;
