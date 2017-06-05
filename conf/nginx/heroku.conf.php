@@ -57,15 +57,10 @@ http {
         error_log stderr;
         access_log /tmp/heroku.nginx_access.<?=getenv('PORT')?:'8080'?>.log;
         
+        
         include "<?=getenv('HEROKU_PHP_NGINX_CONFIG_INCLUDE')?>";
         
-        location / {
-            try_files $uri @rewriteapp;
-        }
 
-        location @rewriteapp {
-            rewrite ^(.*)$ /index.php$1 last;
-        }
         # restrict access to hidden files, just in case
         location ~ /\. {
             deny all;
@@ -74,6 +69,14 @@ http {
         # default handling of .php
         location ~ \.php {
             try_files @heroku-fcgi @heroku-fcgi;
+        }
+        
+        location / {
+            try_files $uri @rewriteapp;
+        }
+
+        location @rewriteapp {
+            rewrite ^(.*)$ /index.php$1 last;
         }
     }
 }
