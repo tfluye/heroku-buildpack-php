@@ -76,7 +76,7 @@ http {
         }
 
         location @rewriteapp {
-            rewrite ^(.*)$ /index.php$1 last;
+            rewrite ^(.*)$ /public/index.php$1 last;
         }
     }
 }
